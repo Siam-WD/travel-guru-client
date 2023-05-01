@@ -1,18 +1,40 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../Provider/AuthProvider";
+
 
 const Login = () => {
-  const handleSubmit = () => {};
+  const { user, handleLogin  } = useContext(AuthContext);
+  console.log(user);
+
+  const handleSubmit = event => {
+    event.preventDefault();
+    const form = event.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    console.log(email, password);
+
+    handleLogin(email, password)
+      .then(result => {
+        const loggedUser = result.user;
+        
+      })
+      .catch(error => console.log(error))
+    
+  };
+
+  
+
   return (
     <div className="relative mt-5 flex flex-col justify-center max-h-screen overflow-hidden">
       <div className="w-full p-6 m-auto bg-white rounded-md shadow-xl lg:max-w-xl">
         <h1 className="text-3xl font-semibold text-center text-black-700 uppercase">
           Sign in
         </h1>
-        <form className="mt-6">
+        <form onSubmit={handleSubmit} className="mt-6">
           <div className="mb-2">
             <label
-              for="email"
+              
               className="block text-sm font-semibold text-gray-800"
             >
               Email
@@ -27,7 +49,7 @@ const Login = () => {
           </div>
           <div className="mb-2">
             <label
-              for="password"
+             
               className="block text-sm font-semibold text-gray-800"
             >
               Password
@@ -40,7 +62,7 @@ const Login = () => {
               className="block w-full px-4 py-2 mt-2 text-yellow-700 bg-white border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:outline-none focus:ring focus:ring-opacity-40"
             />
           </div>
-          <Link href="#" className="text-xs text-yellow-600 hover:underline">
+          <Link to="#" className="text-xs text-yellow-600 hover:underline">
             Forget Password?
           </Link>
           <div className="mt-6">

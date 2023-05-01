@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import { Link } from 'react-router-dom';
 
 const Registration = () => {
+
+  const { handleCreateUser } = useContext(AuthContext);
 
     const handleRegistration = event => {
         event.preventDefault();
@@ -9,8 +13,18 @@ const Registration = () => {
         const lName = form.lName.value;
         const email = form.email.value;
         const password = form.password.value;
+        const displayName = fName + " " + lName;
 
-        console.log(email, password)
+        handleCreateUser(email, password, )
+         .then(result => {
+          const createdUser = result.user;
+          console.log(createdUser);
+         })
+         .catch(error => console.log(error))
+
+         
+
+        console.log(email, password, displayName)
 
     }
 
@@ -30,7 +44,7 @@ const Registration = () => {
               </label>
               <input
                 type="text"
-                name="lName"
+                name="fName"
                 placeholder="First Name"
                 
                 className="block w-full px-4 py-2 mt-2 text-yellow-700 bg-white border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -45,7 +59,7 @@ const Registration = () => {
               </label>
               <input
                 type="text"
-                name="fName"
+                name="lName"
                 placeholder="Last Name"
                 required
                 className="block w-full px-4 py-2 mt-2 text-yellow-700 bg-white border rounded-md focus:border-yellow-400 focus:ring-yellow-300 focus:outline-none focus:ring focus:ring-opacity-40"
@@ -94,9 +108,9 @@ const Registration = () => {
           <p className="mt-8 text-xs font-light text-center text-gray-700">
             {" "}
             Already have an account?{" "}
-            <a href="#" className="font-medium text-yellow-600 hover:underline">
+            <Link to="/login" className="font-medium text-yellow-600 hover:underline">
               Login
-            </a>
+            </Link>
           </p>
         </div>
       </div>

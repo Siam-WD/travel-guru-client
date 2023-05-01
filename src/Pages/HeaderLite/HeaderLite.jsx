@@ -1,8 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { AuthContext } from "../../Provider/AuthProvider";
 
 const HeaderLite = () => {
+
+  const { user, handleSignout } = useContext(AuthContext);
+
+  const handleLogout = () => {
+    handleSignout();
+  }
+
   return (
     <div className="navbar  text-white">
       <div className="navbar-start">
@@ -62,9 +70,12 @@ const HeaderLite = () => {
         </ul>
       </div>
       <div className=" mr-20 ml-10">
-        <Link to="/login">
+       {user?
+         <> {user?.email} <button onClick={handleLogout} className="ml-5 btn btn-warning">Logout</button> </>
+        : <Link to="/login">
         <button className="btn btn-warning">Login</button>
-        </Link>
+        </Link> 
+         }
       </div>
     </div>
   );
