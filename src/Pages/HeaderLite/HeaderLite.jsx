@@ -69,9 +69,9 @@ const HeaderLite = () => {
           </li>
         </ul>
       </div>
-      <div className=" mr-20 ml-10">
+      <div className=" mr-20 ml-10 ">
        {user?
-         <> {user?.email} <button onClick={handleLogout} className="ml-5 btn btn-warning">Logout</button> </>
+         <> <p className="block w-max font-bold">{user?.displayName}</p> <button onClick={handleLogout} className="ml-5 btn btn-warning">Logout</button> </>
         : <Link to="/login">
         <button className="btn btn-warning">Login</button>
         </Link> 
